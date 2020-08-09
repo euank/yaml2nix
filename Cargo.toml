@@ -1,5 +1,5 @@
 [package]
-name = "k8s2nix"
+name = "yaml2nix"
 version = "0.1.0"
 authors = ["Euan Kemp <euank@euank.com>"]
 edition = "2018"
@@ -9,5 +9,5 @@ edition = "2018"
 [dependencies]
 serde = "1.0.114"
 serde_yaml = "0.8.13"
-rnix = "*"
+rnix = "0.8.0"
 nixpkgs-fmt = "0.9.0"
