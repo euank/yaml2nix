@@ -9,3 +9,5 @@ edition = "2018"
 [dependencies]
 serde = "1.0.114"
 serde_yaml = "0.8.13"
+rnix = "*"
+nixpkgs-fmt = "0.9.0"
