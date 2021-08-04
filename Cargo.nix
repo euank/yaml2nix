@@ -625,6 +625,47 @@ rec {
           "default" = [ "std" ];
         };
       };
+      "proc-macro2" = rec {
+        crateName = "proc-macro2";
+        version = "1.0.28";
+        edition = "2018";
+        sha256 = "04k6kwfsl56xqv46f9k88jmj7x4544hhbr6xswzfm1mqqywdhzjw";
+        authors = [
+          "Alex Crichton <alex@alexcrichton.com>"
+          "David Tolnay <dtolnay@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "unicode-xid";
+            packageId = "unicode-xid";
+          }
+        ];
+        features = {
+          "default" = [ "proc-macro" ];
+        };
+        resolvedDefaultFeatures = [ "default" "proc-macro" ];
+      };
+      "quote" = rec {
+        crateName = "quote";
+        version = "1.0.9";
+        edition = "2018";
+        sha256 = "19rjmfqzk26rxbgxy5j2ckqc2v12sw2xw8l4gi8bzpn2bmsbkl63";
+        authors = [
+          "David Tolnay <dtolnay@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "default" = [ "proc-macro" ];
+          "proc-macro" = [ "proc-macro2/proc-macro" ];
+        };
+        resolvedDefaultFeatures = [ "default" "proc-macro" ];
+      };
       "regex" = rec {
         crateName = "regex";
         version = "1.3.9";
@@ -846,6 +887,35 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "std" ];
       };
+      "serde-nix" = rec {
+        crateName = "serde-nix";
+        version = "0.1.0";
+        edition = "2018";
+        workspace_member = null;
+        src = pkgs.fetchgit {
+          url = "https://github.com/euank/serde-nix.git";
+          rev = "1dd0c2f3de841d4d8fcc3eedb516f1eae71b0146";
+          sha256 = "0li9dnv46kpi8gjyn0ghvvrkjnc5bjc39s24si2srxj14jyx29v6";
+        };
+        dependencies = [
+          {
+            name = "serde";
+            packageId = "serde";
+          }
+          {
+            name = "thiserror";
+            packageId = "thiserror";
+          }
+        ];
+        devDependencies = [
+          {
+            name = "serde";
+            packageId = "serde";
+            features = [ "derive" ];
+          }
+        ];
+        
+      };
       "serde_json" = rec {
         crateName = "serde_json";
         version = "1.0.57";
@@ -927,6 +997,39 @@ rec {
         ];
         
       };
+      "syn" = rec {
+        crateName = "syn";
+        version = "1.0.74";
+        edition = "2018";
+        sha256 = "175j336afigixhzixxs821sgw2xh38v023y2vg1qhi8dalrdhwqq";
+        authors = [
+          "David Tolnay <dtolnay@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "unicode-xid";
+            packageId = "unicode-xid";
+          }
+        ];
+        features = {
+          "default" = [ "derive" "parsing" "printing" "clone-impls" "proc-macro" ];
+          "printing" = [ "quote" ];
+          "proc-macro" = [ "proc-macro2/proc-macro" "quote/proc-macro" ];
+          "test" = [ "syn-test-suite/all-features" ];
+        };
+        resolvedDefaultFeatures = [ "clone-impls" "default" "derive" "parsing" "printing" "proc-macro" "quote" ];
+      };
       "text_unit" = rec {
         crateName = "text_unit";
         version = "0.1.10";
@@ -972,6 +1075,47 @@ rec {
         ];
         
       };
+      "thiserror" = rec {
+        crateName = "thiserror";
+        version = "1.0.26";
+        edition = "2018";
+        sha256 = "1qmz542pq4wmz3p0s4kavsqv09h0x99klkf3k33ydjy1x97rw4ck";
+        authors = [
+          "David Tolnay <dtolnay@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "thiserror-impl";
+            packageId = "thiserror-impl";
+          }
+        ];
+        
+      };
+      "thiserror-impl" = rec {
+        crateName = "thiserror-impl";
+        version = "1.0.26";
+        edition = "2018";
+        sha256 = "0ia72qiynlws5avb8f1xqlazp4g6bqgzjbwy5vs6nyg7myh6j386";
+        procMacro = true;
+        authors = [
+          "David Tolnay <dtolnay@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+          }
+          {
+            name = "quote";
+            packageId = "quote";
+          }
+          {
+            name = "syn";
+            packageId = "syn";
+          }
+        ];
+        
+      };
       "thread_local" = rec {
         crateName = "thread_local";
         version = "1.0.1";
@@ -999,6 +1143,20 @@ rec {
         ];
         features = {
           "rustc-dep-of-std" = [ "std" "core" "compiler_builtins" ];
+        };
+        resolvedDefaultFeatures = [ "default" ];
+      };
+      "unicode-xid" = rec {
+        crateName = "unicode-xid";
+        version = "0.2.2";
+        edition = "2015";
+        sha256 = "1wrkgcw557v311dkdb6n2hrix9dm2qdsb1zpw7pn79l03zb85jwc";
+        authors = [
+          "erick.tryzelaar <erick.tryzelaar@gmail.com>"
+          "kwantam <kwantam@gmail.com>"
+          "Manish Goregaokar <manishsmail@gmail.com>"
+        ];
+        features = {
         };
         resolvedDefaultFeatures = [ "default" ];
       };
@@ -1168,6 +1326,10 @@ rec {
           {
             name = "serde";
             packageId = "serde";
+          }
+          {
+            name = "serde-nix";
+            packageId = "serde-nix";
           }
           {
             name = "serde_yaml";
