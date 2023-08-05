@@ -12,5 +12,5 @@ appropriate error message.
 With flake enabled Nix, run:
 
 ```
-nix run github:yodahuang/yaml2nix $PATH_TO_YAML_FILE
+nix run github:euank/yaml2nix $PATH_TO_YAML_FILE
 ```
