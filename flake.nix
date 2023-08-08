@@ -20,7 +20,6 @@
 
       in rec {
         packages = {
-          # replace hello-world with your package name
           yaml2nix = (rustPkgs.workspace.yaml2nix {}).bin;
           default = packages.yaml2nix;
         };
