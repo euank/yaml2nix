@@ -12,23 +12,29 @@ fn main() {
 
 fn convert_doc(document: String) -> String {
     let lines: Vec<_> = document.lines().collect();
-    let documents: Vec<_> = lines.split(|line| line.starts_with("---")).map(|lines| lines.join("\n")).collect();
+    let documents: Vec<_> = lines
+        .split(|line| line.starts_with("---"))
+        .map(|lines| lines.join("\n"))
+        .collect();
 
     // Trim empty documents, best effort.
     let documents: Vec<_> = documents.iter().filter(|d| d.trim() != "").collect();
 
-    let docs: serde_yaml::Sequence = documents.iter().filter_map(|document| {
-        match serde_yaml::from_str(&document) {
-            Ok(doc) => Some(doc),
-            Err(e) if format!("{:?}", e) == "EndOfStream" => {
-                // An empty document can result in this; let's assume it's non-fatal
-                None
-            },
-            Err(e) => {
-                panic!("Unable to deserialize document: {}", e);
+    let docs: serde_yaml::Sequence = documents
+        .iter()
+        .filter_map(|document| {
+            match serde_yaml::from_str(&document) {
+                Ok(doc) => Some(doc),
+                Err(e) if format!("{:?}", e) == "EndOfStream" => {
+                    // An empty document can result in this; let's assume it's non-fatal
+                    None
+                }
+                Err(e) => {
+                    panic!("Unable to deserialize document: {}", e);
+                }
             }
-        }
-    }).collect();
+        })
+        .collect();
 
     let len = docs.len();
     match len {
@@ -55,12 +61,16 @@ mod test {
         for pairs in vec![
             (
                 include_str!("testdata/deployment.yaml"),
-                include_str!("testdata/deployment.nix")
+                include_str!("testdata/deployment.nix"),
             ),
             (
                 include_str!("testdata/multi-doc.yaml"),
-                include_str!("testdata/multi-doc.nix")
-            )
+                include_str!("testdata/multi-doc.nix"),
+            ),
+            (
+                include_str!("testdata/escape.yaml"),
+                include_str!("testdata/escape.nix"),
+            ),
         ] {
             assert_eq!(pairs.1, convert_doc(pairs.0.to_string()));
         }
