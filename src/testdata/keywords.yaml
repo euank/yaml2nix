@@ -1,0 +1,46 @@
+# Keywords from https://github.com/NixOS/nix/blob/48477d4a3e7130c89b2ded4496c00ef74601091f/src/libexpr/lexer.l#L109-L118
+if: if
+then: then
+else: else
+assert: assert
+with: with
+let: let
+in: in
+rec: rec
+inherit: inherit
+or: or
+
+quoted:
+  "if": "if"
+  "then": "then"
+  "else": "else"
+  "assert": "assert"
+  "with": "with"
+  "let": "let"
+  "in": "in"
+  "rec": "rec"
+  "inherit": "inherit"
+  "or": "or"
+
+
+kwar:
+- if
+- then
+- else
+- assert
+- with
+- let
+- in
+- rec
+- inherit
+- or
+- "if"
+- "then"
+- "else"
+- "assert"
+- "with"
+- "let"
+- "in"
+- "rec"
+- "inherit"
+- "or"

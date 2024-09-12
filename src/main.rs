@@ -71,6 +71,10 @@ mod test {
                 include_str!("testdata/escape.yaml"),
                 include_str!("testdata/escape.nix"),
             ),
+            (
+                include_str!("testdata/keywords.yaml"),
+                include_str!("testdata/keywords.nix"),
+            ),
         ] {
             assert_eq!(pairs.1, convert_doc(pairs.0.to_string()));
         }
