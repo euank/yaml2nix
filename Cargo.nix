@@ -537,7 +537,7 @@ in
     version = "0.1.0";
     registry = "git+https://github.com/euank/serde-nix.git";
     src = fetchCrateGit {
-      url = https://github.com/euank/serde-nix.git;
+      url = "https://github.com/euank/serde-nix.git";
       name = "serde-nix";
       version = "0.1.0";
       rev = "1e3d04d88dcbec91d0aec050a4a53cd5e8c5e2d4";};
