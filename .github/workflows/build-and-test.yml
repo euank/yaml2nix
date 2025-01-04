@@ -28,3 +28,13 @@ jobs:
       run: nix flake check
     - name: Verify nix run works
       run: nix run '.#' -- src/testdata/deployment.yaml
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@v4
+    - name: Run the Magic Nix Cache
+      uses: DeterminateSystems/magic-nix-cache-action@v2
+    - name: Run statix lint
+      run: nix run --inputs-from ./. 'nixpkgs#statix' -- check -c ./.github/workflows/statix.toml

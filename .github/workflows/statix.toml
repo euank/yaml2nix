@@ -1,0 +1,4 @@
+disabled = [
+  # cargo2nix generates these
+  "useless_parens"
+]
